@@ -59,3 +59,7 @@ resource "aws_instance" "this" {
     Name = each.key
   }
 }
+
+output "debug_public_key" {
+  value = var.public_key
+}
