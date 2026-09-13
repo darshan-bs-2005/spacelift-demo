@@ -1,44 +1,20 @@
 ---
-- name: Install and Configure Nginx
+- name: Install htop
   hosts: all
-  become: yes
-  pre_tasks:
-    - name: Set SSH user for Ubuntu systems
-      set_fact:
-        ansible_user: ubuntu
-      when: ansible_os_family == "Debian"
+  become: true
+  gather_facts: false
 
-    - name: Set SSH user for RedHat systems
-      set_fact:
-        ansible_user: ec2-user
-      when: ansible_os_family == "RedHat"
-  
   tasks:
-    - name: Install Nginx
-      ansible.builtin.yum:
-        name: nginx
+
+    - name: Install Python 3.9
+      ansible.builtin.raw: |
+        apt-get update
+        apt-get install -y python3.9
+      changed_when: false
+      check_mode: false
+
+    - name: Install htop
+      ansible.builtin.apt:
+        name: htop
         state: present
-      when: ansible_os_family == "RedHat"
-      
-    - name: install nginx
-      apt: name=nginx state=latest
-      when: ansible_os_family == "Debian"
-
-    - name: Create index.html
-      ansible.builtin.copy:
-        dest: /usr/share/nginx/html/index.html
-        content: |
-          <!DOCTYPE html>
-          <html>
-          <head><title>Server Details</title></head>
-          <body>
-          <h1>Served from {{ ansible_hostname }}</h1>
-          </body>
-          </html>
-        mode: '0644'
-
-    - name: Ensure Nginx is running and enabled
-      ansible.builtin.service:
-        name: nginx
-        state: started
-        enabled: yes
+        update_cache: true
