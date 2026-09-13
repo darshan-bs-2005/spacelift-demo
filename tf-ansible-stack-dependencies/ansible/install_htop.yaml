@@ -1,13 +1,19 @@
 ---
 - name: Install htop
   hosts: all
-  become: yes
+  become: true
+  gather_facts: false
+
   tasks:
-    - name: Update apt cache
-      apt:
-        update_cache: yes
+    - name: Install Python 3.9
+      ansible.builtin.raw: |
+        apt-get update
+        apt-get install -y python3.9
 
     - name: Install htop
-      apt:
+      ansible.builtin.apt:
         name: htop
         state: present
+        update_cache: true
+      vars:
+        ansible_python_interpreter: /usr/bin/python3.9
