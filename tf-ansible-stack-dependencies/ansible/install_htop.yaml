@@ -5,6 +5,7 @@
   gather_facts: false
 
   tasks:
+
     - name: Install Python 3.9
       ansible.builtin.raw: |
         apt-get update
@@ -16,5 +17,3 @@
         name: htop
         state: present
         update_cache: true
-      vars:
-        ansible_python_interpreter: /usr/bin/python3.9
