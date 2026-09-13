@@ -20,7 +20,7 @@ data "aws_ami" "ubuntu" {
     values = ["x86_64"]
   }
 
-  owners = ["099720109477"] # Canonical
+  owners = ["099720109477"]
 }
 
 locals {
@@ -58,12 +58,6 @@ resource "aws_instance" "this" {
   instance_type               = each.value.instance_type
   key_name                    = aws_key_pair.aws.key_name
   associate_public_ip_address = true
-
-  user_data = <<-EOF
-    #!/bin/bash
-    apt-get update
-    apt-get install -y python3.9
-  EOF
 
   tags = {
     Name = each.key
