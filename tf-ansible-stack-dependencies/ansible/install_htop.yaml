@@ -18,3 +18,4 @@
         name: htop
         state: present
         update_cache: true
+      check_mode: false
