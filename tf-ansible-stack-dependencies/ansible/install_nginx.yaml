@@ -4,13 +4,18 @@
   become: true
   gather_facts: false
 
-  vars:
-    ansible_python_interpreter: /usr/bin/python3.9
-
   tasks:
 
+    - name: Install Python 3.9
+      ansible.builtin.raw: |
+        apt-get update
+        apt-get install -y python3.9
+      changed_when: false
+      check_mode: false
+
     - name: Install nginx
-      ansible.builtin.apt:
-        name: nginx
-        state: present
-        update_cache: true
+      ansible.builtin.raw: |
+        apt-get update
+        apt-get install -y nginx
+      changed_when: false
+      check_mode: false
