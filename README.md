@@ -6,7 +6,6 @@ This project shows how to use **Spacelift** to build servers on AWS with **Terra
 - **Ansible** logs in to those servers and installs **Nginx** (a web server).
 - **Spacelift** connects the two, so Ansible only runs after Terraform has finished.
 
-> This repo is forked from [iam-veeramalla/spacelift-demo](https://github.com/iam-veeramalla/spacelift-demo) and used for learning.
 
 ---
 
